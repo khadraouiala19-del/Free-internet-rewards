@@ -47,7 +47,6 @@
             direction: ltr;
         }
 
-        /* صندوق مؤشر التفاعل مع تضبيب خفيف يحميه من الرصد المباشر */
         .metric-card {
             background: #1e293b;
             border-radius: 14px;
@@ -194,7 +193,6 @@
             line-height: 1.4;
         }
 
-        /* Modal Box */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -444,8 +442,14 @@
             }
         }
 
+        // دالة تحديث عرض الرقم على الشاشة بالصيغة الصحيحة
+        function formatBalanceDisplay() {
+            document.getElementById('balanceDisplay').innerText = currentBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+
         window.onload = function() {
             updateOperators();
+            formatBalanceDisplay();
         };
 
         function selectData(element, pkgName, pkgPrice) {
@@ -484,7 +488,11 @@
             modalOverlay.classList.add('show');
 
             setTimeout(() => {
+                // خصم السعر من المتغير
                 currentBalance -= selectedPackagePrice;
+                
+                // تحديث العرض على الشاشة مباشرة لكي يتحرك الرقم
+                formatBalanceDisplay();
 
                 modalBox.innerHTML = `
                     <div class="success-icon">✓</div>
