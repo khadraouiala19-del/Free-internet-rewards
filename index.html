@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>منصة المكافآت والإنترنت العالمي - Global Rewards & Free Data</title>
+    <title>Global Data Hub & API Gateway - لوحة تحكم الشبكات والبيانات</title>
     <style>
         * {
             box-sizing: border-box;
@@ -14,76 +14,82 @@
         }
 
         body {
-            background-color: #f4f6f9;
-            color: #121212;
+            background-color: #0f172a;
+            color: #f8fafc;
             padding: 16px;
             display: flex;
             flex-direction: column;
             gap: 14px;
             max-width: 480px;
             margin: 0 auto;
+            min-height: 100vh;
         }
 
         .header-section {
             text-align: center;
             padding: 18px 10px;
-            background: linear-gradient(135deg, #0066ff, #00c6ff);
+            background: linear-gradient(135deg, #1e293b, #334155);
             color: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0, 102, 255, 0.2);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .header-icon {
-            font-size: 38px;
+            font-size: 32px;
             margin-bottom: 6px;
         }
 
         .header-title {
-            font-size: 19px;
-            font-weight: 800;
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
         .header-sub {
-            font-size: 12px;
-            opacity: 0.95;
+            font-size: 11px;
+            color: #94a3b8;
             margin-top: 4px;
+            direction: ltr;
         }
 
         .balance-card {
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: linear-gradient(135deg, #065f46, #047857);
             color: #ffffff;
-            border-radius: 16px;
+            border-radius: 14px;
             padding: 16px;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(4, 120, 87, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .balance-title {
             font-size: 11px;
-            opacity: 0.95;
+            opacity: 0.9;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .balance-amount {
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 900;
             margin: 6px 0 2px 0;
             direction: ltr;
+            color: #34d399;
         }
 
         .balance-subtitle {
             font-size: 11px;
-            opacity: 0.95;
+            opacity: 0.85;
+            direction: ltr;
         }
 
         .form-container {
-            background: #ffffff;
+            background: #1e293b;
             padding: 16px;
             border-radius: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            border: 1px solid #eaeaea;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -96,16 +102,16 @@
         }
 
         .input-label {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
-            color: #121212;
+            color: #cbd5e1;
         }
 
         .input-wrapper {
             position: relative;
-            background: #f8f9fa;
-            border: 1.5px solid #0066ff;
-            border-radius: 12px;
+            background: #0f172a;
+            border: 1.5px solid #3b82f6;
+            border-radius: 10px;
             padding: 10px 14px;
             display: flex;
             align-items: center;
@@ -115,10 +121,10 @@
             border: none;
             background: transparent;
             outline: none;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 500;
             width: 100%;
-            color: #121212;
+            color: #f8fafc;
             text-align: left;
             direction: ltr;
         }
@@ -130,9 +136,9 @@
         }
 
         .section-header {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
-            color: #121212;
+            color: #e2e8f0;
             margin-top: 4px;
         }
 
@@ -143,46 +149,46 @@
         }
 
         .data-card {
-            background: #ffffff;
-            border: 2px solid #eaeaea;
-            border-radius: 14px;
-            padding: 14px 8px;
+            background: #1e293b;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 12px 6px;
             text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
         .data-card.active {
-            border-color: #0066ff;
-            background: #f0f5ff;
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.15);
         }
 
         .data-amount {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 800;
-            color: #0066ff;
+            color: #60a5fa;
         }
 
         .data-type {
-            font-size: 12px;
-            color: #121212;
-            font-weight: 700;
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 600;
             margin-top: 4px;
+            direction: ltr;
         }
 
         .action-btn {
-            background: linear-gradient(135deg, #0066ff, #00c6ff);
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
             color: #ffffff;
             border: none;
-            border-radius: 25px;
-            padding: 15px;
-            font-size: 15px;
+            border-radius: 20px;
+            padding: 14px;
+            font-size: 14px;
             font-weight: 700;
             width: 100%;
-            margin-top: 6px;
+            margin-top: 4px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
             transition: transform 0.1s ease;
             text-align: center;
             line-height: 1.4;
@@ -193,11 +199,11 @@
         }
 
         .policy-text {
-            font-size: 11px;
-            color: #6c757d;
+            font-size: 10px;
+            color: #64748b;
             text-align: center;
             line-height: 1.4;
-            margin-top: 4px;
+            margin-top: 2px;
         }
 
         /* Modal Overlay */
@@ -207,8 +213,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(3px);
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(4px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -224,13 +230,14 @@
         }
 
         .modal-box {
-            background: #ffffff;
+            background: #1e293b;
             width: 88%;
             max-width: 330px;
-            border-radius: 24px;
-            padding: 26px 20px;
+            border-radius: 20px;
+            padding: 24px 18px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transform: scale(0.8);
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -240,72 +247,73 @@
         }
 
         .success-icon {
-            width: 65px;
-            height: 65px;
-            background: linear-gradient(135deg, #10b981, #059669);
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #059669, #047857);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 16px auto;
+            margin: 0 auto 14px auto;
             color: #fff;
-            font-size: 34px;
+            font-size: 28px;
             font-weight: bold;
-            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.4);
         }
 
         .modal-title {
-            font-size: 19px;
+            font-size: 17px;
             font-weight: 800;
-            color: #121212;
-            margin-bottom: 10px;
+            color: #f8fafc;
+            margin-bottom: 8px;
         }
 
         .modal-desc {
-            font-size: 13px;
-            color: #48484a;
-            margin-bottom: 22px;
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 20px;
             line-height: 1.5;
-            background: #f8f9fa;
+            background: #0f172a;
             padding: 12px;
-            border-radius: 12px;
-            border: 1px solid #eaeaea;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: right;
         }
 
         .modal-btn {
-            background: #0066ff;
+            background: #2563eb;
             color: #fff;
             border: none;
-            border-radius: 25px;
-            padding: 13px;
-            font-size: 15px;
+            border-radius: 20px;
+            padding: 12px;
+            font-size: 14px;
             font-weight: 700;
             width: 100%;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
         }
 
         .processing-content {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
             padding: 10px 0;
         }
 
         .processing-spinner {
-            width: 45px;
-            height: 45px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #0066ff;
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top: 3px solid #3b82f6;
             border-radius: 50%;
             animation: spin 0.9s linear infinite;
         }
 
         .processing-text {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
-            color: #121212;
+            color: #cbd5e1;
             line-height: 1.5;
         }
 
@@ -318,20 +326,20 @@
 <body>
 
     <div class="header-section">
-        <div class="header-icon">🌐</div>
-        <div class="header-title">منصة المكافآت والإنترنت العالمي<br><span style="font-size:13px; font-weight:normal;">Plateforme Mondiale de Récompenses & Internet</span></div>
-        <div class="header-sub">توزيع باقات الإنترنت والرصيد العالمي<br>Distribution de Forfaits Internet & Crédit Global</div>
+        <div class="header-icon">⚙️</div>
+        <div class="header-title">لوحة تحكم الشبكات وخدمات البيانات</div>
+        <div class="header-sub">Global Data Hub & API Gateway Interface</div>
     </div>
 
     <div class="balance-card">
-        <div class="balance-title">الرصيد الكلي المتاح / Solde Total Disponible</div>
+        <div class="balance-title">إجمالي الرصيد الاحتياطي / Total Reserve Balance</div>
         <div class="balance-amount" id="balanceDisplay">$100,000.00</div>
-        <div class="balance-subtitle">رصيد الخزينة العامة النشط<br>Solde de Trésorerie Actif</div>
+        <div class="balance-subtitle">Gateway Pool Allocation Unit</div>
     </div>
 
     <div class="form-container">
         <div class="input-group">
-            <label class="input-label">اختر الدولة / Choisir le Pays</label>
+            <label class="input-label">منطقة الخدمة / Service Region (Country)</label>
             <div class="input-wrapper">
                 <select class="select-field" id="countrySelect" onchange="updateOperators()">
                     <option value="تونس" data-ops="Ooredoo,Orange,Tunisie Telecom">🇹🇳 تونس (Tunisia)</option>
@@ -365,7 +373,7 @@
         </div>
 
         <div class="input-group">
-            <label class="input-label">شبكة الاتصال / Opérateur Réseau (SIM)</label>
+            <label class="input-label">مزود شبكة الاتصال / Network Provider (SIM)</label>
             <div class="input-wrapper">
                 <select class="select-field" id="operatorSelect">
                     <!-- تعبئة تلقائية -->
@@ -374,55 +382,55 @@
         </div>
 
         <div class="input-group">
-            <label class="input-label">رقم الهاتف أو المعرف / Téléphone ou ID</label>
+            <label class="input-label">معرف التوجيه أو الرقم / Routing ID or MSISDN</label>
             <div class="input-wrapper">
                 <input type="tel" class="input-field" id="phoneInput" placeholder="22 123 456" value="94467538">
             </div>
         </div>
     </div>
 
-    <div class="section-header">اختر باقة الإنترنت / Choisir le Forfait Internet</div>
+    <div class="section-header">اختر وحدة الحصة البياناتية / Select Data Allocation Unit</div>
 
     <div class="data-grid">
         <div class="data-card active" onclick="selectData(this, '5 GO', 15)">
             <div class="data-amount">5 GO</div>
-            <div class="data-type">$15.00</div>
+            <div class="data-type">$15.00 Unit</div>
         </div>
 
         <div class="data-card" onclick="selectData(this, '10 GO', 25)">
             <div class="data-amount">10 GO</div>
-            <div class="data-type">$25.00</div>
+            <div class="data-type">$25.00 Unit</div>
         </div>
 
         <div class="data-card" onclick="selectData(this, '25 GO', 50)">
             <div class="data-amount">25 GO</div>
-            <div class="data-type">$50.00</div>
+            <div class="data-type">$50.00 Unit</div>
         </div>
 
         <div class="data-card" onclick="selectData(this, '50 GO', 90)">
             <div class="data-amount">50 GO</div>
-            <div class="data-type">$90.00</div>
+            <div class="data-type">$90.00 Unit</div>
         </div>
 
         <div class="data-card" onclick="selectData(this, '100 GO', 160)">
             <div class="data-amount">100 GO</div>
-            <div class="data-type">$160.00</div>
+            <div class="data-type">$160.00 Unit</div>
         </div>
 
         <div class="data-card" onclick="selectData(this, '200 GO', 300)">
             <div class="data-amount">200 GO</div>
-            <div class="data-type">$300.00</div>
+            <div class="data-type">$300.00 Unit</div>
         </div>
     </div>
 
     <div class="policy-text">
-        بالضغط على الزر أدناه، سيتم اقتطاع ثمن الباقة وإرسالها فوراً.<br>
-        En cliquant ci-dessous, le montant du forfait sera déduit et envoyé instantanément.
+        جميع عمليات التوجيه وتخصيص البيانات تخضع لبروتوكولات الشبكات الدولية واتفاقيات مزودي الخدمات.<br>
+        All data routing operations are subject to international network protocols and gateway provider agreements.
     </div>
 
     <button class="action-btn" onclick="executeRecharge()">
-        إرسال باقة الإنترنت الآن<br>
-        <span style="font-size:13px; font-weight:normal;">Envoyer le Forfait Internet Maintenant</span>
+        تنفيذ عملية التوجيه وإرسال الحصة<br>
+        <span style="font-size:11px; font-weight:normal; opacity:0.9;">Execute Gateway Routing & Dispatch</span>
     </button>
 
     <div class="modal-overlay" id="successModal">
@@ -462,7 +470,6 @@
             element.classList.add('active');
             selectedPackageName = pkgName;
             selectedPackagePrice = pkgPrice;
-            // ملاحظة: تم إزالة خصم الرصيد عند النقر هنا بناءً على طلبك
         }
 
         function formatBalanceDisplay() {
@@ -479,12 +486,12 @@
             const phone = phoneInput.value.trim();
 
             if(!phone) {
-                alert('الرجاء إدخال رقم الهاتف أو المعرف أولاً / Veuillez entrer le numéro de téléphone ou l\'identifiant');
+                alert('الرجاء إدخال رقم المعرف أو الهاتف / Please enter routing ID or MSISDN');
                 return;
             }
 
             if(currentBalance < selectedPackagePrice) {
-                alert('عذراً، الرصيد غير كافي لاقتطاع ثمن هذه الباقة! / Solde insuffisant !');
+                alert('عذراً، الرصيد الاحتياطي غير كافي لإتمام هذه الحصة! / Insufficient Reserve Balance!');
                 return;
             }
 
@@ -495,27 +502,27 @@
                 <div class="processing-content">
                     <div class="processing-spinner"></div>
                     <div class="processing-text">
-                        جاري معالجة وإرسال الباقة لـ ${operator}...<br>
-                        <span style="font-size:12px; font-weight:normal; color:#6c757d;">Traitement de l'envoi en cours...</span>
+                        جاري معالجة طلب البوابة وإرسال حزمة ${operator}...<br>
+                        <span style="font-size:11px; font-weight:normal; color:#64748b;">Processing Gateway Route & Dispatch...</span>
                     </div>
                 </div>
             `;
             modalOverlay.classList.add('show');
 
-            // محاكاة وقت المعالجة ثم خصم المبلغ عند اكتمال النجاح تماماً
+            // محاكاة المعالجة التقنية ثم خصم الرصيد وتأكيد النجاح
             setTimeout(() => {
                 currentBalance -= selectedPackagePrice;
                 formatBalanceDisplay();
 
                 modalBox.innerHTML = `
                     <div class="success-icon">✓</div>
-                    <div class="modal-title">تم إرسال الباقة بنجاح!<br><span style="font-size:14px; font-weight:normal; color:#6c757d;">Forfait Envoyé avec Succès !</span></div>
+                    <div class="modal-title">تم تنفيذ التوجيه بنجاح!<br><span style="font-size:12px; font-weight:normal; color:#94a3b8;">Routing Dispatch Successful!</span></div>
                     <div class="modal-desc">
-                        تم بنجاح اقتطاع مبلغ <b>($${selectedPackagePrice.toFixed(2)})</b> وإرسال باقة <b>(${selectedPackageName})</b> لشبكة <b>${operator}</b> في <b>${country}</b> للرقم: <span dir="ltr"><b>${phone}</b></span>.<br><br>
-                        <span style="color:#059669; font-weight:bold;">سيصلك الرصيد والباقة خلال ساعتين كحد أقصى.</span><br>
-                        <span style="font-size:11px; color:#6c757d;">Le forfait sera crédité dans les 2 heures maximum.</span>
+                        تم خصم تكلفة الحصة <b>($${selectedPackagePrice.toFixed(2)})</b> وتوجيه حصة <b>(${selectedPackageName})</b> لشبكة <b>${operator}</b> في <b>${country}</b> للمعرف: <span dir="ltr"><b>${phone}</b></span>.<br><br>
+                        <span style="color:#34d399; font-weight:bold;">سيتم تفعيل الرصيد والحصة على الشبكة خلال ساعتين كحد أقصى.</span><br>
+                        <span style="font-size:10px; color:#94a3b8;">Activation will reflect on the network within 2 hours max.</span>
                     </div>
-                    <button class="modal-btn" onclick="closeModal()">حسناً / OK</button>
+                    <button class="modal-btn" onclick="closeModal()">إغلاق / Close</button>
                 `;
             }, 1800);
         }
