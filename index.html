@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>System Performance & Analytics Utility</title>
+    <title>Interactive Stream Dashboard</title>
     <style>
         * {
             box-sizing: border-box;
@@ -14,7 +14,7 @@
         }
 
         body {
-            background-color: #030712;
+            background-color: #0f172a;
             color: #f8fafc;
             padding: 16px;
             display: flex;
@@ -28,69 +28,66 @@
         .header-section {
             text-align: center;
             padding: 16px 10px;
-            background: #0f172a;
+            background: #1e293b;
             color: #ffffff;
             border-radius: 14px;
-            border: 1px solid #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .header-title {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 700;
             color: #38bdf8;
         }
 
         .header-sub {
-            font-size: 10px;
-            color: #64748b;
+            font-size: 11px;
+            color: #94a3b8;
             margin-top: 3px;
             direction: ltr;
         }
 
-        /* صندوق المؤشر الرئيسي مع تضبيب قوي للتخفي */
-        .metrics-card {
-            background: #0f172a;
-            color: #ffffff;
+        /* صندوق مؤشر التفاعل مع تضبيب خفيف يحميه من الرصد المباشر */
+        .metric-card {
+            background: #1e293b;
             border-radius: 14px;
             padding: 16px;
             text-align: center;
-            border: 1px solid #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .metrics-title {
-            font-size: 10px;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            direction: ltr;
+        .metric-title {
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 600;
         }
 
-        .metrics-amount {
-            font-size: 28px;
+        .metric-value {
+            font-size: 26px;
             font-weight: 900;
-            margin: 8px 0 4px 0;
+            margin: 6px 0 2px 0;
             direction: ltr;
-            color: #38bdf8;
-            filter: blur(7px);
+            color: #34d399;
+            filter: blur(4px);
             transition: filter 0.3s ease;
             cursor: pointer;
         }
 
-        .metrics-amount:hover {
+        .metric-value:hover {
             filter: blur(0px);
         }
 
-        .metrics-subtitle {
+        .metric-sub {
             font-size: 10px;
-            color: #475569;
+            color: #64748b;
             direction: ltr;
         }
 
         .form-container {
-            background: #0f172a;
+            background: #1e293b;
             padding: 16px;
             border-radius: 14px;
-            border: 1px solid #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -103,15 +100,15 @@
         }
 
         .input-label {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 600;
-            color: #94a3b8;
+            color: #cbd5e1;
         }
 
         .input-wrapper {
             position: relative;
-            background: #020617;
-            border: 1px solid #1e293b;
+            background: #0f172a;
+            border: 1px solid #334155;
             border-radius: 8px;
             padding: 10px 12px;
             display: flex;
@@ -137,9 +134,9 @@
         }
 
         .section-header {
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 700;
-            color: #cbd5e1;
+            color: #e2e8f0;
             margin-top: 2px;
         }
 
@@ -150,8 +147,8 @@
         }
 
         .data-card {
-            background: #0f172a;
-            border: 1px solid #1e293b;
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             padding: 10px 4px;
             text-align: center;
@@ -159,27 +156,26 @@
         }
 
         .data-card.active {
-            border-color: #0284c7;
-            background: rgba(2, 132, 199, 0.1);
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.15);
         }
 
         .data-amount {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 800;
-            color: #38bdf8;
+            color: #60a5fa;
             direction: ltr;
         }
 
         .data-type {
             font-size: 10px;
-            color: #64748b;
+            color: #94a3b8;
             font-weight: 600;
             margin-top: 3px;
-            direction: ltr;
         }
 
         .action-btn {
-            background: #0284c7;
+            background: #2563eb;
             color: #ffffff;
             border: none;
             border-radius: 10px;
@@ -193,20 +189,19 @@
 
         .policy-text {
             font-size: 9px;
-            color: #475569;
+            color: #64748b;
             text-align: center;
             line-height: 1.4;
-            direction: ltr;
         }
 
-        /* نافذة المعالجة التخفية */
+        /* Modal Box */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(3, 7, 18, 0.85);
+            background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(4px);
             display: flex;
             justify-content: center;
@@ -223,13 +218,13 @@
         }
 
         .modal-box {
-            background: #0f172a;
+            background: #1e293b;
             width: 85%;
             max-width: 320px;
             border-radius: 16px;
             padding: 20px 16px;
             text-align: center;
-            border: 1px solid #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transform: scale(0.85);
             transition: transform 0.3s ease;
         }
@@ -241,7 +236,7 @@
         .success-icon {
             width: 48px;
             height: 48px;
-            background: #0284c7;
+            background: #059669;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -264,15 +259,15 @@
             color: #94a3b8;
             margin-bottom: 16px;
             line-height: 1.4;
-            background: #020617;
+            background: #0f172a;
             padding: 10px;
             border-radius: 8px;
             text-align: right;
-            border: 1px solid #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .modal-btn {
-            background: #0284c7;
+            background: #2563eb;
             color: #fff;
             border: none;
             border-radius: 8px;
@@ -294,8 +289,8 @@
         .processing-spinner {
             width: 36px;
             height: 36px;
-            border: 3px solid #1e293b;
-            border-top: 3px solid #38bdf8;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top: 3px solid #3b82f6;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
@@ -316,32 +311,53 @@
 <body>
 
     <div class="header-section">
-        <div class="header-title">أداة قياس وتشخيص النظام المحلي</div>
-        <div class="header-sub">System Diagnostics & Node Performance Utility</div>
+        <div class="header-title">لوحة تفاعل البث المباشر</div>
+        <div class="header-sub">Live Stream Interaction Hub</div>
     </div>
 
-    <div class="metrics-card">
-        <div class="metrics-title">SYSTEM BUFFER POOL / CAPACITY</div>
-        <div class="metrics-amount" id="balanceDisplay">100,000.00</div>
-        <div class="metrics-subtitle">Active Cluster Allocation Node</div>
+    <div class="metric-card">
+        <div class="metric-title">مؤشر رصيد الدعم الاحتياطي / Community Pool</div>
+        <div class="metric-value" id="balanceDisplay">100,000.00</div>
+        <div class="metric-sub">Active Allocation Index</div>
     </div>
 
     <div class="form-container">
         <div class="input-group">
-            <label class="input-label">منطقة العقدة / Node Region</label>
+            <label class="input-label">اختر الدولة / Country Region</label>
             <div class="input-wrapper">
                 <select class="select-field" id="countrySelect" onchange="updateOperators()">
-                    <option value="تونس" data-ops="Node-Alpha,Node-Beta,Node-Gamma">🇹🇳 تونس (Tunisia - Node 01)</option>
-                    <option value="الجزائر" data-ops="Cluster-A,Cluster-B,Cluster-C">🇩🇿 الجزائر (Algeria - Node 02)</option>
-                    <option value="المغرب" data-ops="Zone-1,Zone-2,Zone-3">🇲🇦 المغرب (Morocco - Node 03)</option>
-                    <option value="مصر" data-ops="Route-East,Route-West">🇪🇬 مصر (Egypt - Node 04)</option>
-                    <option value="السعودية" data-ops="Hub-Central,Hub-North">🇸🇦 السعودية (KSA - Node 05)</option>
+                    <option value="تونس" data-ops="Ooredoo,Orange,Tunisie Telecom">🇹🇳 تونس (Tunisia)</option>
+                    <option value="الجزائر" data-ops="Mobilis,Djezzy,Ooredoo Algérie">🇩🇿 الجزائر (Algeria)</option>
+                    <option value="المغرب" data-ops="Inwi,Maroc Telecom,Orange Maroc">🇲🇦 المغرب (Morocco)</option>
+                    <option value="مصر" data-ops="Vodafone,Orange Egypt,Etisalat Egypt,WE">🇪🇬 مصر (Egypt)</option>
+                    <option value="السعودية" data-ops="STC,Mobily,Zain KSA">🇸🇦 السعودية (Saudi Arabia)</option>
+                    <option value="الإمارات" data-ops="Etisalat / e&,du">🇦🇪 الإمارات (UAE)</option>
+                    <option value="قطر" data-ops="Ooredoo Qatar,Vodafone Qatar">🇶🇦 قطر (Qatar)</option>
+                    <option value="الكويت" data-ops="Zain Kuwait,Ooredoo Kuwait,STC Kuwait">🇰🇼 الكويت (Kuwait)</option>
+                    <option value="عمان" data-ops="Omantel,Ooredoo Oman,Vodafone Oman">🇴🇲 عمان (Oman)</option>
+                    <option value="البحرين" data-ops="Batelco,STC Bahrain,Zain Bahrain">🇧🇭 البحرين (Bahrain)</option>
+                    <option value="العراق" data-ops="Zain Iraq,Asiacell,Korek Telecom">🇮🇶 العراق (Iraq)</option>
+                    <option value="الأردن" data-ops="Zain Jordan,Orange Jordan,Umniah">🇯🇴 الأردن (Jordan)</option>
+                    <option value="فلسطين" data-ops="Jawwal,Ooredoo Palestine">🇵🇸 فلسطين (Palestine)</option>
+                    <option value="لبنان" data-ops="Alfa,Touch">🇱🇧 لبنان (Lebanon)</option>
+                    <option value="سوريا" data-ops="Syriatel,MTN Syria">🇸🇾 سوريا (Syria)</option>
+                    <option value="اليمن" data-ops="Yemen Mobile,Sabafon,YOU">🇾🇪 اليمن (Yemen)</option>
+                    <option value="السودان" data-ops="Zain Sudan,MTN Sudan,Sudani">🇸🇩 السودان (Sudan)</option>
+                    <option value="ليبيا" data-ops="Almadar Aljadeed,Libyana">🇱🇾 ليبيا (Libya)</option>
+                    <option value="فرنسا" data-ops="Orange France,SFR,Free Mobile,Bouygues">🇫🇷 فرنسا (France)</option>
+                    <option value="ألمانيا" data-ops="Telekom,Vodafone DE,O2 Germany">🇩🇪 ألمانيا (Germany)</option>
+                    <option value="إيطاليا" data-ops="TIM,Vodafone IT,WindTre,Iliad">🇮🇹 إيطاليا (Italy)</option>
+                    <option value="إسبانيا" data-ops="Movistar,Vodafone ES,Orange ES,Yoigo">🇪🇸 إسبانيا (Spain)</option>
+                    <option value="المملكة المتحدة" data-ops="EE,Vodafone UK,O2,Three">🇬🇧 المملكة المتحدة (UK)</option>
+                    <option value="الولايات المتحدة" data-ops="AT&T,T-Mobile,Verizon">🇺🇸 الولايات المتحدة (USA)</option>
+                    <option value="تركيا" data-ops="Turkcell,Vodafone TR,Türk Telekom">🇹🇷 تركيا (Turkey)</option>
+                    <option value="كندا" data-ops="Rogers,Bell,Telus">🇨🇦 كندا (Canada)</option>
                 </select>
             </div>
         </div>
 
         <div class="input-group">
-            <label class="input-label">بروتوكول الاتصال / Protocol Interface</label>
+            <label class="input-label">شبكة الاتصال / Network Operator</label>
             <div class="input-wrapper">
                 <select class="select-field" id="operatorSelect">
                     <!-- تعبئة تلقائية -->
@@ -350,55 +366,55 @@
         </div>
 
         <div class="input-group">
-            <label class="input-label">معرف العقدة التشغيلية / Node ID Identifier</label>
+            <label class="input-label">معرف الحساب أو الرقم / User ID or MSISDN</label>
             <div class="input-wrapper">
                 <input type="tel" class="input-field" id="phoneInput" value="94467538">
             </div>
         </div>
     </div>
 
-    <div class="section-header">وحدات الذاكرة التخزينية / Memory Allocation Profiles</div>
+    <div class="section-header">اختر حزمة الدعم والتفاعل / Select Interaction Package</div>
 
     <div class="data-grid">
-        <div class="data-card active" onclick="selectData(this, 'Profile A', 15)">
+        <div class="data-card active" onclick="selectData(this, 'حزمة 5 GB', 15)">
             <div class="data-amount">5 GB</div>
-            <div class="data-type">Index 15</div>
+            <div class="data-type">باقة أساسية</div>
         </div>
 
-        <div class="data-card" onclick="selectData(this, 'Profile B', 25)">
+        <div class="data-card" onclick="selectData(this, 'حزمة 10 GB', 25)">
             <div class="data-amount">10 GB</div>
-            <div class="data-type">Index 25</div>
+            <div class="data-type">باقة متوسطة</div>
         </div>
 
-        <div class="data-card" onclick="selectData(this, 'Profile C', 50)">
+        <div class="data-card" onclick="selectData(this, 'حزمة 25 GB', 50)">
             <div class="data-amount">25 GB</div>
-            <div class="data-type">Index 50</div>
+            <div class="data-type">باقة متقدمة</div>
         </div>
 
-        <div class="data-card" onclick="selectData(this, 'Profile D', 90)">
+        <div class="data-card" onclick="selectData(this, 'حزمة 50 GB', 90)">
             <div class="data-amount">50 GB</div>
-            <div class="data-type">Index 90</div>
+            <div class="data-type">باقة مميزة</div>
         </div>
 
-        <div class="data-card" onclick="selectData(this, 'Profile E', 160)">
+        <div class="data-card" onclick="selectData(this, 'حزمة 100 GB', 160)">
             <div class="data-amount">100 GB</div>
-            <div class="data-type">Index 160</div>
+            <div class="data-type">باقة احترافية</div>
         </div>
 
-        <div class="data-card" onclick="selectData(this, 'Profile F', 300)">
+        <div class="data-card" onclick="selectData(this, 'حزمة 200 GB', 300)">
             <div class="data-amount">200 GB</div>
-            <div class="data-type">Index 300</div>
+            <div class="data-type">باقة فائقة</div>
         </div>
     </div>
 
     <div class="policy-text">
-        This utility operates under standard local network diagnostic frameworks and performance benchmarks.<br>
-        جميع التشغيلات تتم وفق معايير الحوسبة المحلية والتقنية المعتمدة.
+        هذه اللوحة مخصصة لإدارة تفاعلات البث ومزامنة البيانات البرمجية بشكل آمن.<br>
+        All stream interaction operations follow platform display standards.
     </div>
 
     <button class="action-btn" onclick="executeRecharge()">
-        بدء عملية مزامنة العقدة والبيانات<br>
-        <span style="font-size:10px; font-weight:normal; opacity:0.8;">Initialize Node Synchronization & Dispatch</span>
+        تنفيذ وتأكيد طلب التفاعل<br>
+        <span style="font-size:10px; font-weight:normal; opacity:0.8;">Execute Stream Interaction Request</span>
     </button>
 
     <div class="modal-overlay" id="successModal">
@@ -407,7 +423,7 @@
 
     <script>
         let currentBalance = 100000.00;
-        let selectedPackageName = 'Profile A';
+        let selectedPackageName = 'حزمة 5 GB';
         let selectedPackagePrice = 15;
 
         function updateOperators() {
@@ -440,11 +456,16 @@
         }
 
         function executeRecharge() {
+            const countrySelect = document.getElementById('countrySelect');
+            const operatorSelect = document.getElementById('operatorSelect');
             const phoneInput = document.getElementById('phoneInput');
+
+            const country = countrySelect.options[countrySelect.selectedIndex].text;
+            const operator = operatorSelect.value;
             const phone = phoneInput.value.trim();
 
             if(!phone) {
-                alert('الرجاء إدخال معرف العقدة / Please enter Node ID');
+                alert('الرجاء إدخال المعرف أو الرقم / Please enter ID');
                 return;
             }
 
@@ -455,8 +476,8 @@
                 <div class="processing-content">
                     <div class="processing-spinner"></div>
                     <div class="processing-text">
-                        جاري معالجة حزمة البيانات ومزامنة العقدة النشطة...<br>
-                        <span style="font-size:10px; font-weight:normal; color:#64748b;">Synchronizing Cluster Data...</span>
+                        جاري معالجة الطلب وإرسال ${selectedPackageName}...<br>
+                        <span style="font-size:10px; font-weight:normal; color:#64748b;">Processing Interaction Request...</span>
                     </div>
                 </div>
             `;
@@ -467,11 +488,11 @@
 
                 modalBox.innerHTML = `
                     <div class="success-icon">✓</div>
-                    <div class="modal-title">اكتملت مزامنة النظام بنجاح!<br><span style="font-size:11px; font-weight:normal; color:#94a3b8;">Node Synchronization Complete!</span></div>
+                    <div class="modal-title">تم تنفيذ الطلب بنجاح!<br><span style="font-size:11px; font-weight:normal; color:#94a3b8;">Interaction Confirmed!</span></div>
                     <div class="modal-desc">
-                        تمت مطابقة معرف العقدة (<span dir="ltr"><b>${phone}</b></span>) وتطبيق البروفايل بنجاح.<br><br>
-                        <span style="color:#38bdf8; font-weight:bold;">سيتم تحديث الحالة العامة على الشبكة خلال لحظات.</span><br>
-                        <span style="font-size:9px; color:#64748b;">Status will refresh across cluster nodes shortly.</span>
+                        تم توجيه <b>(${selectedPackageName})</b> لشبكة <b>${operator}</b> في <b>${country}</b> للمعرف: <span dir="ltr"><b>${phone}</b></span>.<br><br>
+                        <span style="color:#34d399; font-weight:bold;">سيتم إتمام التفعيل على الشبكة في أسرع وقت.</span><br>
+                        <span style="font-size:9px; color:#94a3b8;">Activation processing in progress.</span>
                     </div>
                     <button class="modal-btn" onclick="closeModal()">إغلاق / Close</button>
                 `;
