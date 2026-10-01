@@ -165,14 +165,8 @@
         }
 
         .data-type {
-            font-size: 11px;
-            color: #6c757d;
-            margin-top: 2px;
-        }
-
-        .data-bonus {
-            font-size: 11px;
-            color: #10b981;
+            font-size: 12px;
+            color: #121212;
             font-weight: 700;
             margin-top: 4px;
         }
@@ -291,7 +285,6 @@
             box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
         }
 
-        /* Processing Loader inside Modal */
         .processing-content {
             display: flex;
             flex-direction: column;
@@ -327,13 +320,13 @@
     <div class="header-section">
         <div class="header-icon">🌐</div>
         <div class="header-title">منصة المكافآت والإنترنت العالمي<br><span style="font-size:13px; font-weight:normal;">Plateforme Mondiale de Récompenses & Internet</span></div>
-        <div class="header-sub">توزيع باقات الإنترنت المجاني والرصيد النقدي<br>Distribution de Forfaits Internet & Crédit Gratuit</div>
+        <div class="header-sub">توزيع باقات الإنترنت والرصيد العالمي<br>Distribution de Forfaits Internet & Crédit Global</div>
     </div>
 
     <div class="balance-card">
-        <div class="balance-title">إجمالي الرصيد المتاح للسحب / Solde Total Disponible</div>
-        <div class="balance-amount" id="balanceDisplay">$100.00</div>
-        <div class="balance-subtitle">مكافآت التوزيع والشراكة العالمية النشطة<br>Récompenses de Partenariat Actives</div>
+        <div class="balance-title">الرصيد الكلي المتاح / Solde Total Disponible</div>
+        <div class="balance-amount" id="balanceDisplay">$100,000.00</div>
+        <div class="balance-subtitle">رصيد الخزينة العامة النشط<br>Solde de Trésorerie Actif</div>
     </div>
 
     <div class="form-container">
@@ -375,7 +368,7 @@
             <label class="input-label">شبكة الاتصال / Opérateur Réseau (SIM)</label>
             <div class="input-wrapper">
                 <select class="select-field" id="operatorSelect">
-                    <!-- سيتم تعبئتها ديناميكياً -->
+                    <!-- تعبئة تلقائية -->
                 </select>
             </div>
         </div>
@@ -388,54 +381,48 @@
         </div>
     </div>
 
-    <div class="section-header">اختر باقة الإنترنت أو المكافأة / Choisir le Forfait</div>
+    <div class="section-header">اختر باقة الإنترنت / Choisir le Forfait Internet</div>
 
     <div class="data-grid">
-        <div class="data-card active" onclick="selectData(this, '5 GO + $100', '$100.00')">
+        <div class="data-card active" onclick="selectData(this, '5 GO', 15)">
             <div class="data-amount">5 GO</div>
-            <div class="data-type">+ $100 USD</div>
-            <div class="data-bonus">رصيد مجاني</div>
+            <div class="data-type">$15.00</div>
         </div>
 
-        <div class="data-card" onclick="selectData(this, '10 GO + $250', '$250.00')">
+        <div class="data-card" onclick="selectData(this, '10 GO', 25)">
             <div class="data-amount">10 GO</div>
-            <div class="data-type">+ $250 USD</div>
-            <div class="data-bonus">رصيد مجاني</div>
+            <div class="data-type">$25.00</div>
         </div>
 
-        <div class="data-card" onclick="selectData(this, '25 GO + $500', '$500.00')">
+        <div class="data-card" onclick="selectData(this, '25 GO', 50)">
             <div class="data-amount">25 GO</div>
-            <div class="data-type">+ $500 USD</div>
-            <div class="data-bonus">رصيد مجاني</div>
+            <div class="data-type">$50.00</div>
         </div>
 
-        <div class="data-card" onclick="selectData(this, '50 GO + $1000', '$1,000.00')">
+        <div class="data-card" onclick="selectData(this, '50 GO', 90)">
             <div class="data-amount">50 GO</div>
-            <div class="data-type">+ $1,000 USD</div>
-            <div class="data-bonus">رصيد مميز</div>
+            <div class="data-type">$90.00</div>
         </div>
 
-        <div class="data-card" onclick="selectData(this, '100 GO + $2500', '$2,500.00')">
+        <div class="data-card" onclick="selectData(this, '100 GO', 160)">
             <div class="data-amount">100 GO</div>
-            <div class="data-type">+ $2,500 USD</div>
-            <div class="data-bonus">رصيد ضخم</div>
+            <div class="data-type">$160.00</div>
         </div>
 
-        <div class="data-card" onclick="selectData(this, '200 GO + $5000', '$5,000.00')">
+        <div class="data-card" onclick="selectData(this, '200 GO', 300)">
             <div class="data-amount">200 GO</div>
-            <div class="data-type">+ $5,000 USD</div>
-            <div class="data-bonus">الحد الأقصى</div>
+            <div class="data-type">$300.00</div>
         </div>
     </div>
 
     <div class="policy-text">
-        بالضغط على الزر أدناه، فإنك توافق على شروط شبكة الاتصالات والتحويل الدولي.<br>
-        En cliquant ci-dessous, vous acceptez les conditions des opérateurs et du transfert international.
+        بالضغط على الزر أدناه، سيتم اقتطاع ثمن الباقة وإرسالها فوراً.<br>
+        En cliquant ci-dessous, le montant du forfait sera déduit et envoyé instantanément.
     </div>
 
     <button class="action-btn" onclick="executeRecharge()">
-        تفعيل الباقة وسحب الرصيد الآن<br>
-        <span style="font-size:13px; font-weight:normal;">Activer le Forfait et Récupérer le Solde</span>
+        إرسال باقة الإنترنت الآن<br>
+        <span style="font-size:13px; font-weight:normal;">Envoyer le Forfait Internet Maintenant</span>
     </button>
 
     <div class="modal-overlay" id="successModal">
@@ -443,7 +430,9 @@
     </div>
 
     <script>
-        let selectedPackage = '5 GO + $100';
+        let currentBalance = 100000.00;
+        let selectedPackageName = '5 GO';
+        let selectedPackagePrice = 15;
 
         function updateOperators() {
             const countrySelect = document.getElementById('countrySelect');
@@ -465,13 +454,19 @@
 
         window.onload = function() {
             updateOperators();
+            formatBalanceDisplay();
         };
 
-        function selectData(element, pkg, amount) {
+        function selectData(element, pkgName, pkgPrice) {
             document.querySelectorAll('.data-card').forEach(card => card.classList.remove('active'));
             element.classList.add('active');
-            selectedPackage = pkg;
-            document.getElementById('balanceDisplay').innerText = amount;
+            selectedPackageName = pkgName;
+            selectedPackagePrice = pkgPrice;
+            // ملاحظة: تم إزالة خصم الرصيد عند النقر هنا بناءً على طلبك
+        }
+
+        function formatBalanceDisplay() {
+            document.getElementById('balanceDisplay').innerText = '$' + currentBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
         }
 
         function executeRecharge() {
@@ -488,6 +483,11 @@
                 return;
             }
 
+            if(currentBalance < selectedPackagePrice) {
+                alert('عذراً، الرصيد غير كافي لاقتطاع ثمن هذه الباقة! / Solde insuffisant !');
+                return;
+            }
+
             const modalOverlay = document.getElementById('successModal');
             const modalBox = document.getElementById('modalContainerBox');
 
@@ -495,21 +495,25 @@
                 <div class="processing-content">
                     <div class="processing-spinner"></div>
                     <div class="processing-text">
-                        جاري معالجة التحويل وباقة الإنترنت...<br>
-                        <span style="font-size:12px; font-weight:normal; color:#6c757d;">Traitement en cours pour ${operator} (${country})...</span>
+                        جاري معالجة وإرسال الباقة لـ ${operator}...<br>
+                        <span style="font-size:12px; font-weight:normal; color:#6c757d;">Traitement de l'envoi en cours...</span>
                     </div>
                 </div>
             `;
             modalOverlay.classList.add('show');
 
+            // محاكاة وقت المعالجة ثم خصم المبلغ عند اكتمال النجاح تماماً
             setTimeout(() => {
+                currentBalance -= selectedPackagePrice;
+                formatBalanceDisplay();
+
                 modalBox.innerHTML = `
                     <div class="success-icon">✓</div>
-                    <div class="modal-title">تمت العملية بنجاح!<br><span style="font-size:14px; font-weight:normal; color:#6c757d;">Opération Réussie !</span></div>
+                    <div class="modal-title">تم إرسال الباقة بنجاح!<br><span style="font-size:14px; font-weight:normal; color:#6c757d;">Forfait Envoyé avec Succès !</span></div>
                     <div class="modal-desc">
-                        تمت إضافة الباقة <b>(${selectedPackage})</b> لشبكة <b>${operator}</b> في <b>${country}</b> للرقم: <span dir="ltr"><b>${phone}</b></span>.<br><br>
+                        تم بنجاح اقتطاع مبلغ <b>($${selectedPackagePrice.toFixed(2)})</b> وإرسال باقة <b>(${selectedPackageName})</b> لشبكة <b>${operator}</b> في <b>${country}</b> للرقم: <span dir="ltr"><b>${phone}</b></span>.<br><br>
                         <span style="color:#059669; font-weight:bold;">سيصلك الرصيد والباقة خلال ساعتين كحد أقصى.</span><br>
-                        <span style="font-size:11px; color:#6c757d;">Le forfait et le solde seront crédités dans les 2 heures maximum.</span>
+                        <span style="font-size:11px; color:#6c757d;">Le forfait sera crédité dans les 2 heures maximum.</span>
                     </div>
                     <button class="modal-btn" onclick="closeModal()">حسناً / OK</button>
                 `;
