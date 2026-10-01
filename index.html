@@ -167,6 +167,9 @@
             font-size: 16px;
             font-weight: 800;
             color: #60a5fa;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            text-align: center;
         }
 
         .data-type {
@@ -175,6 +178,8 @@
             font-weight: 600;
             margin-top: 4px;
             direction: ltr;
+            unicode-bidi: bidi-override;
+            text-align: center;
         }
 
         .action-btn {
@@ -509,7 +514,6 @@
             `;
             modalOverlay.classList.add('show');
 
-            // محاكاة المعالجة التقنية ثم خصم الرصيد وتأكيد النجاح
             setTimeout(() => {
                 currentBalance -= selectedPackagePrice;
                 formatBalanceDisplay();
