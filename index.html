@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Network Diagnostics Hub</title>
+    <title>System Performance & Analytics Utility</title>
     <style>
         * {
             box-sizing: border-box;
@@ -15,147 +15,166 @@
 
         body {
             background-color: #030712;
-            color: #94a3b8;
-            padding: 12px;
+            color: #f8fafc;
+            padding: 16px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
             max-width: 480px;
             margin: 0 auto;
             min-height: 100vh;
         }
 
-        .header {
-            background: #0f172a;
-            border: 1px solid #1e293b;
-            border-radius: 12px;
-            padding: 12px;
+        .header-section {
             text-align: center;
+            padding: 16px 10px;
+            background: #0f172a;
+            color: #ffffff;
+            border-radius: 14px;
+            border: 1px solid #1e293b;
         }
 
         .header-title {
-            font-size: 13px;
-            font-weight: bold;
-            color: #f8fafc;
-            margin-bottom: 2px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #38bdf8;
         }
 
         .header-sub {
-            font-size: 9px;
+            font-size: 10px;
             color: #64748b;
+            margin-top: 3px;
             direction: ltr;
         }
 
-        /* صندوق المؤشر الرئيسي مع تضبيب قوي */
-        .metric-card {
+        /* صندوق المؤشر الرئيسي مع تضبيب قوي للتخفي */
+        .metrics-card {
             background: #0f172a;
-            border: 1px solid #1e293b;
+            color: #ffffff;
             border-radius: 14px;
             padding: 16px;
             text-align: center;
+            border: 1px solid #1e293b;
         }
 
-        .metric-title {
+        .metrics-title {
             font-size: 10px;
             color: #64748b;
-            font-weight: bold;
-            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             direction: ltr;
         }
 
-        .metric-value {
-            font-size: 24px;
+        .metrics-amount {
+            font-size: 28px;
             font-weight: 900;
-            color: #38bdf8;
+            margin: 8px 0 4px 0;
             direction: ltr;
-            filter: blur(6px);
+            color: #38bdf8;
+            filter: blur(7px);
             transition: filter 0.3s ease;
+            cursor: pointer;
         }
 
-        .metric-value:hover {
+        .metrics-amount:hover {
             filter: blur(0px);
         }
 
-        .metric-sub {
-            font-size: 9px;
+        .metrics-subtitle {
+            font-size: 10px;
             color: #475569;
-            margin-top: 4px;
             direction: ltr;
         }
 
-        .panel-group {
+        .form-container {
             background: #0f172a;
+            padding: 16px;
+            border-radius: 14px;
             border: 1px solid #1e293b;
-            border-radius: 12px;
-            padding: 12px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 12px;
         }
 
-        .panel-label {
-            font-size: 10px;
-            color: #64748b;
-            font-weight: bold;
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
         }
 
-        .panel-box {
+        .input-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+        }
+
+        .input-wrapper {
+            position: relative;
             background: #020617;
             border: 1px solid #1e293b;
             border-radius: 8px;
-            padding: 10px;
-            color: #cbd5e1;
-            font-size: 12px;
-            direction: ltr;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-field, .select-field {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 13px;
+            font-weight: 500;
+            width: 100%;
+            color: #f8fafc;
             text-align: left;
+            direction: ltr;
         }
 
-        .section-title {
-            font-size: 11px;
-            font-weight: bold;
+        .select-field {
+            direction: rtl;
+            text-align: right;
+            cursor: pointer;
+        }
+
+        .section-header {
+            font-size: 12px;
+            font-weight: 700;
             color: #cbd5e1;
-            text-align: center;
-            margin: 2px 0;
+            margin-top: 2px;
         }
 
-        .grid-options {
+        .data-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 8px;
         }
 
-        .opt-card {
+        .data-card {
             background: #0f172a;
             border: 1px solid #1e293b;
             border-radius: 10px;
-            padding: 10px 6px;
+            padding: 10px 4px;
             text-align: center;
+            cursor: pointer;
         }
 
-        .opt-card.active {
+        .data-card.active {
             border-color: #0284c7;
-            background: rgba(2, 132, 199, 0.08);
+            background: rgba(2, 132, 199, 0.1);
         }
 
-        .opt-main {
-            font-size: 12px;
-            font-weight: bold;
-            color: #f8fafc;
+        .data-amount {
+            font-size: 14px;
+            font-weight: 800;
+            color: #38bdf8;
             direction: ltr;
         }
 
-        .opt-sub {
-            font-size: 9px;
+        .data-type {
+            font-size: 10px;
             color: #64748b;
-            direction: ltr;
-            margin-top: 2px;
-        }
-
-        .footer-note {
-            font-size: 8px;
-            color: #475569;
-            text-align: center;
-            line-height: 1.4;
+            font-weight: 600;
+            margin-top: 3px;
             direction: ltr;
         }
 
@@ -163,77 +182,305 @@
             background: #0284c7;
             color: #ffffff;
             border: none;
-            padding: 12px;
             border-radius: 10px;
-            font-size: 12px;
-            font-weight: bold;
+            padding: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
             text-align: center;
+        }
+
+        .policy-text {
+            font-size: 9px;
+            color: #475569;
+            text-align: center;
+            line-height: 1.4;
+            direction: ltr;
+        }
+
+        /* نافذة المعالجة التخفية */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-box {
+            background: #0f172a;
+            width: 85%;
+            max-width: 320px;
+            border-radius: 16px;
+            padding: 20px 16px;
+            text-align: center;
+            border: 1px solid #1e293b;
+            transform: scale(0.85);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.show .modal-box {
+            transform: scale(1);
+        }
+
+        .success-icon {
+            width: 48px;
+            height: 48px;
+            background: #0284c7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px auto;
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .modal-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 6px;
+        }
+
+        .modal-desc {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-bottom: 16px;
+            line-height: 1.4;
+            background: #020617;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: right;
+            border: 1px solid #1e293b;
+        }
+
+        .modal-btn {
+            background: #0284c7;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .processing-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+        }
+
+        .processing-spinner {
+            width: 36px;
+            height: 36px;
+            border: 3px solid #1e293b;
+            border-top: 3px solid #38bdf8;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .processing-text {
+            font-size: 12px;
+            font-weight: 600;
+            color: #cbd5e1;
+            line-height: 1.4;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="header-title">أداة فحص وتشخيص الشبكة المحلية</div>
-        <div class="header-sub">Local Network Diagnostics & Performance Utility</div>
+    <div class="header-section">
+        <div class="header-title">أداة قياس وتشخيص النظام المحلي</div>
+        <div class="header-sub">System Diagnostics & Node Performance Utility</div>
     </div>
 
-    <!-- صندوق المؤشر الرقمي المضبب للتخفي التام -->
-    <div class="metric-card">
-        <div class="metric-title">SYSTEM POOL CAPACITY / TOTAL ALLOCATION</div>
-        <div class="metric-value">99,825.00</div>
-        <div class="metric-sub">Active Node Buffer Unit</div>
+    <div class="metrics-card">
+        <div class="metrics-title">SYSTEM BUFFER POOL / CAPACITY</div>
+        <div class="metrics-amount" id="balanceDisplay">100,000.00</div>
+        <div class="metrics-subtitle">Active Cluster Allocation Node</div>
     </div>
 
-    <div class="panel-group">
-        <div class="panel-label">Current Region / المنطقة</div>
-        <div class="panel-box">DZ - Regional Node #04</div>
+    <div class="form-container">
+        <div class="input-group">
+            <label class="input-label">منطقة العقدة / Node Region</label>
+            <div class="input-wrapper">
+                <select class="select-field" id="countrySelect" onchange="updateOperators()">
+                    <option value="تونس" data-ops="Node-Alpha,Node-Beta,Node-Gamma">🇹🇳 تونس (Tunisia - Node 01)</option>
+                    <option value="الجزائر" data-ops="Cluster-A,Cluster-B,Cluster-C">🇩🇿 الجزائر (Algeria - Node 02)</option>
+                    <option value="المغرب" data-ops="Zone-1,Zone-2,Zone-3">🇲🇦 المغرب (Morocco - Node 03)</option>
+                    <option value="مصر" data-ops="Route-East,Route-West">🇪🇬 مصر (Egypt - Node 04)</option>
+                    <option value="السعودية" data-ops="Hub-Central,Hub-North">🇸🇦 السعودية (KSA - Node 05)</option>
+                </select>
+            </div>
+        </div>
 
-        <div class="panel-label">Network Protocol / البروتوكول</div>
-        <div class="panel-box">Standard Multiplexing (TCP/IP)</div>
+        <div class="input-group">
+            <label class="input-label">بروتوكول الاتصال / Protocol Interface</label>
+            <div class="input-wrapper">
+                <select class="select-field" id="operatorSelect">
+                    <!-- تعبئة تلقائية -->
+                </select>
+            </div>
+        </div>
 
-        <div class="panel-label">Node Identifier / معرف العقدة</div>
-        <div class="panel-box">94467538</div>
-    </div>
-
-    <div class="section-title">إعدادات النطاق الترددي / Bandwidth Profiles</div>
-
-    <div class="grid-options">
-        <div class="opt-card">
-            <div class="opt-main">25 GB</div>
-            <div class="opt-sub">Profile A</div>
-        </div>
-        <div class="opt-card">
-            <div class="opt-main">10 GB</div>
-            <div class="opt-sub">Profile B</div>
-        </div>
-        <div class="opt-card">
-            <div class="opt-main">5 GB</div>
-            <div class="opt-sub">Profile C</div>
-        </div>
-        <div class="opt-card">
-            <div class="opt-main">200 GB</div>
-            <div class="opt-sub">Profile D</div>
-        </div>
-        <div class="opt-card active">
-            <div class="opt-main">100 GB</div>
-            <div class="opt-sub">Active Profile</div>
-        </div>
-        <div class="opt-card">
-            <div class="opt-main">50 GB</div>
-            <div class="opt-sub">Profile E</div>
+        <div class="input-group">
+            <label class="input-label">معرف العقدة التشغيلية / Node ID Identifier</label>
+            <div class="input-wrapper">
+                <input type="tel" class="input-field" id="phoneInput" value="94467538">
+            </div>
         </div>
     </div>
 
-    <div class="footer-note">
-        This diagnostic interface operates under standard local network routing guidelines and protocol frameworks.<br>
-        جميع الحقوق محفوظة - للاستخدام التشغيلي والتقني فقط.
+    <div class="section-header">وحدات الذاكرة التخزينية / Memory Allocation Profiles</div>
+
+    <div class="data-grid">
+        <div class="data-card active" onclick="selectData(this, 'Profile A', 15)">
+            <div class="data-amount">5 GB</div>
+            <div class="data-type">Index 15</div>
+        </div>
+
+        <div class="data-card" onclick="selectData(this, 'Profile B', 25)">
+            <div class="data-amount">10 GB</div>
+            <div class="data-type">Index 25</div>
+        </div>
+
+        <div class="data-card" onclick="selectData(this, 'Profile C', 50)">
+            <div class="data-amount">25 GB</div>
+            <div class="data-type">Index 50</div>
+        </div>
+
+        <div class="data-card" onclick="selectData(this, 'Profile D', 90)">
+            <div class="data-amount">50 GB</div>
+            <div class="data-type">Index 90</div>
+        </div>
+
+        <div class="data-card" onclick="selectData(this, 'Profile E', 160)">
+            <div class="data-amount">100 GB</div>
+            <div class="data-type">Index 160</div>
+        </div>
+
+        <div class="data-card" onclick="selectData(this, 'Profile F', 300)">
+            <div class="data-amount">200 GB</div>
+            <div class="data-type">Index 300</div>
+        </div>
     </div>
 
-    <div class="action-btn">
-        تحديث حالة العقدة والاتصال<br>
-        <span style="font-size: 8px; opacity: 0.7;">Refresh Node Status & Diagnostics</span>
+    <div class="policy-text">
+        This utility operates under standard local network diagnostic frameworks and performance benchmarks.<br>
+        جميع التشغيلات تتم وفق معايير الحوسبة المحلية والتقنية المعتمدة.
     </div>
 
+    <button class="action-btn" onclick="executeRecharge()">
+        بدء عملية مزامنة العقدة والبيانات<br>
+        <span style="font-size:10px; font-weight:normal; opacity:0.8;">Initialize Node Synchronization & Dispatch</span>
+    </button>
+
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-box" id="modalContainerBox"></div>
+    </div>
+
+    <script>
+        let currentBalance = 100000.00;
+        let selectedPackageName = 'Profile A';
+        let selectedPackagePrice = 15;
+
+        function updateOperators() {
+            const countrySelect = document.getElementById('countrySelect');
+            const operatorSelect = document.getElementById('operatorSelect');
+            const selectedOption = countrySelect.options[countrySelect.selectedIndex];
+            const opsString = selectedOption.getAttribute('data-ops');
+            
+            operatorSelect.innerHTML = '';
+            if (opsString) {
+                const opsArray = opsString.split(',');
+                opsArray.forEach(op => {
+                    const opt = document.createElement('option');
+                    opt.value = op.trim();
+                    opt.textContent = op.trim();
+                    operatorSelect.appendChild(opt);
+                });
+            }
+        }
+
+        window.onload = function() {
+            updateOperators();
+        };
+
+        function selectData(element, pkgName, pkgPrice) {
+            document.querySelectorAll('.data-card').forEach(card => card.classList.remove('active'));
+            element.classList.add('active');
+            selectedPackageName = pkgName;
+            selectedPackagePrice = pkgPrice;
+        }
+
+        function executeRecharge() {
+            const phoneInput = document.getElementById('phoneInput');
+            const phone = phoneInput.value.trim();
+
+            if(!phone) {
+                alert('الرجاء إدخال معرف العقدة / Please enter Node ID');
+                return;
+            }
+
+            const modalOverlay = document.getElementById('successModal');
+            const modalBox = document.getElementById('modalContainerBox');
+
+            modalBox.innerHTML = `
+                <div class="processing-content">
+                    <div class="processing-spinner"></div>
+                    <div class="processing-text">
+                        جاري معالجة حزمة البيانات ومزامنة العقدة النشطة...<br>
+                        <span style="font-size:10px; font-weight:normal; color:#64748b;">Synchronizing Cluster Data...</span>
+                    </div>
+                </div>
+            `;
+            modalOverlay.classList.add('show');
+
+            setTimeout(() => {
+                currentBalance -= selectedPackagePrice;
+
+                modalBox.innerHTML = `
+                    <div class="success-icon">✓</div>
+                    <div class="modal-title">اكتملت مزامنة النظام بنجاح!<br><span style="font-size:11px; font-weight:normal; color:#94a3b8;">Node Synchronization Complete!</span></div>
+                    <div class="modal-desc">
+                        تمت مطابقة معرف العقدة (<span dir="ltr"><b>${phone}</b></span>) وتطبيق البروفايل بنجاح.<br><br>
+                        <span style="color:#38bdf8; font-weight:bold;">سيتم تحديث الحالة العامة على الشبكة خلال لحظات.</span><br>
+                        <span style="font-size:9px; color:#64748b;">Status will refresh across cluster nodes shortly.</span>
+                    </div>
+                    <button class="modal-btn" onclick="closeModal()">إغلاق / Close</button>
+                `;
+            }, 1800);
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').classList.remove('show');
+        }
+    </script>
 </body>
 </html>
